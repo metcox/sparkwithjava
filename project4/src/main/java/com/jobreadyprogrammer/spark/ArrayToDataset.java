@@ -27,24 +27,9 @@ public class ArrayToDataset {
 		 ds = ds.map((MapFunction<String, String>) row -> "word: " + row, Encoders.STRING());
 		 ds.show(10);
 		 
-		String stringValue = ds.reduce(new StringReducer());
+		String stringValue = ds.reduce((ReduceFunction<String>) (s1, s2) -> s1 + s2);
 		
 		System.out.println(stringValue);
-		
-	}
-	
-	
-	static class StringReducer implements ReduceFunction<String>, Serializable {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String call(String v1, String v2) throws Exception {
-			return v1 + v2;
-		}
 		
 	}
 
