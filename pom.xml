@@ -1,110 +1,93 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.jobreadyprogrammer</groupId>
-  <artifactId>learningspark</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  
-  
-   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
-    <scala.version>2.11</scala.version>
-    <spark.version>2.3.1</spark.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
- <dependencies>
-    <!-- Spark -->
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_${scala.version}</artifactId>
-      <version>${spark.version}</version>
-    </dependency>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_${scala.version}</artifactId>
-      <version>${spark.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+    <groupId>com.jobreadyprogrammer</groupId>
+    <artifactId>learningspark</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-mllib_${scala.version}</artifactId>
-      <version>${spark.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-log4j12</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+    <modules>
+        <module>project1</module>
+        <module>project2</module>
+        <module>project3</module>
+        <module>project4</module>
+        <module>project5</module>
+        <module>project6</module>
+        <module>project7</module>
+        <module>project8</module>
+        <module>project9</module>
+    </modules>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    
-	</dependencies>
+    <properties>
+        <scala.version>2.11</scala.version>
+        <spark.version>2.3.1</spark.version>
+        <postgresql.version>42.1.4</postgresql.version>
+    </properties>
 
-  <build>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spark -->
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
 
-      <plugins>
-		<plugin>
-		    <groupId>org.apache.maven.plugins</groupId>
-		    <artifactId>maven-dependency-plugin</artifactId>
-		    <executions>
-		        <execution>
-		            <id>copy-dependencies</id>
-		            <phase>prepare-package</phase>
-		            <goals>
-		                <goal>copy-dependencies</goal>
-		            </goals>
-		            <configuration>
-		                <outputDirectory>
-		                    ${project.build.directory}/libs
-		                </outputDirectory>
-		            </configuration>
-		        </execution>
-		    </executions>
-		</plugin>
-	
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-simple</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
-		<plugin>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-maven-plugin</artifactId>
-		    <executions>
-		        <execution>
-		            <goals>
-		                <goal>repackage</goal>
-		            </goals>
-		            <configuration>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-mllib_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+                <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+                </exclusions>
+            </dependency>
 
-		                <mainClass>com.jobreadyprogrammer.spark.Application</mainClass>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql-kafka-0-10_${scala.version}</artifactId>
+                <version>2.3.0</version>
+            </dependency>
 
-		            </configuration>
-		        </execution>
-		    </executions>
-		</plugin>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-hdfs</artifactId>
+                <version>2.2.0</version>
+            </dependency>
 
-	    </plugins>
-	    
-	    
-</build>
+        </dependencies>
+    </dependencyManagement>
 
-  
 </project>
